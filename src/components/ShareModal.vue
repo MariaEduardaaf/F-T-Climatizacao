@@ -1,6 +1,6 @@
 <template>
     <div v-if="show" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <!-- Aumentei a largura do modal e adicionei mais padding -->
+        <!-- Modal aumentado com mais largura e espaçamento -->
         <div class="bg-white rounded-lg w-80 p-6 shadow-lg">
             <h3 class="text-lg font-semibold mb-4 text-center">Compartilhar</h3>
             <ul class="space-y-3">
@@ -11,7 +11,7 @@
                     </button>
                 </li>
                 <li>
-                    <a :href="'https://wa.me/5579996284242?text=' + encodeURIComponent(shareMessage)" target="_blank"
+                    <a :href="whatsAppLink" target="_blank"
                         class="flex items-center text-green-600 hover:text-green-800 w-full">
                         <ChatBubbleLeftRightIcon class="w-5 h-5 mr-2" /> Compartilhar no WhatsApp
                     </a>
@@ -23,7 +23,6 @@
                     </a>
                 </li>
             </ul>
-            <!-- Botão de fechar com mais espaçamento acima -->
             <button @click="closeModal" class="mt-6 text-red-600 hover:text-red-800 text-center w-full">Fechar</button>
         </div>
     </div>
@@ -46,6 +45,13 @@ export default {
         return {
             shareMessage: "Olá! Acessei seu site e gostaria de obter mais informações sobre os serviços oferecidos."
         };
+    },
+    computed: {
+        whatsAppLink() {
+            // Gera o link do WhatsApp com o número e a mensagem codificada
+            const phoneNumber = "5579996284242"; // Substitua pelo número de telefone desejado
+            return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(this.shareMessage)}`;
+        }
     },
     methods: {
         copyLink() {
